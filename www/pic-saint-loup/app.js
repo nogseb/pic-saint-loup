@@ -102,6 +102,13 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
     document.querySelector('.map-stage')?.classList.add('leaflet-ready');
     renderMap();
+    // Recalculer la taille réelle des tuiles après les changements de mise en page.
+    if ('ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver(() => {
+        if (map) requestAnimationFrame(() => map.invalidateSize({pan:false}));
+      });
+      resizeObserver.observe(document.getElementById('map'));
+    }
   }
   window.addEventListener('load',initMap,{once:true});
   showDay('samedi');
