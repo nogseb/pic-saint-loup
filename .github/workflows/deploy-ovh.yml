@@ -1,0 +1,73 @@
+name: Publier Pic Saint-Loup sur OVH
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deployment-pic-saint-loup
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer la branche main
+        uses: actions/checkout@v4
+
+      - name: Vérifier la présence des secrets SFTP
+        id: secrets
+        shell: bash
+        env:
+          OVH_SFTP_HOST: ${{ secrets.OVH_SFTP_HOST }}
+          OVH_SFTP_USER: ${{ secrets.OVH_SFTP_USER }}
+          OVH_SFTP_PASSWORD: ${{ secrets.OVH_SFTP_PASSWORD }}
+        run: |
+          if [[ -z "$OVH_SFTP_HOST" || -z "$OVH_SFTP_USER" || -z "$OVH_SFTP_PASSWORD" ]]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Déploiement ignoré : renseigner OVH_SFTP_HOST, OVH_SFTP_USER et OVH_SFTP_PASSWORD."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Installer lftp
+        if: steps.secrets.outputs.configured == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Valider la destination isolée
+        if: steps.secrets.outputs.configured == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          PUBLISH_DIR="$(realpath "$GITHUB_WORKSPACE/www/pic-saint-loup")"
+          [[ "$PUBLISH_DIR" == "$GITHUB_WORKSPACE/www/pic-saint-loup" ]]
+          test -f "$PUBLISH_DIR/index.html"
+          test -f "$PUBLISH_DIR/.htaccess"
+          # Garde explicite : ni www/ ni www/ds ni un autre sous-projet.
+          REMOTE_DIR="www/pic-saint-loup"
+          [[ "$REMOTE_DIR" == "www/pic-saint-loup" ]]
+
+      - name: Publier uniquement www/pic-saint-loup/
+        if: steps.secrets.outputs.configured == 'true'
+        shell: bash
+        env:
+          OVH_SFTP_HOST: ${{ secrets.OVH_SFTP_HOST }}
+          OVH_SFTP_USER: ${{ secrets.OVH_SFTP_USER }}
+          OVH_SFTP_PASSWORD: ${{ secrets.OVH_SFTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          # Aucun --delete : les fichiers distants ne sont jamais supprimés.
+          # Ne synchronise que le sous-dossier de ce projet.
+          lftp -u "$OVH_SFTP_USER,$OVH_SFTP_PASSWORD" "sftp://$OVH_SFTP_HOST" -e "
+            set net:max-retries 2;
+            set net:timeout 30;
+            mkdir -p www/pic-saint-loup;
+            mirror --reverse --verbose=1 --parallel=2 --no-perms \
+              \"$GITHUB_WORKSPACE/www/pic-saint-loup/\" \
+              \"www/pic-saint-loup/\";
+            bye;
+          "
