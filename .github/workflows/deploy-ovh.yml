@@ -51,6 +51,28 @@ jobs:
           REMOTE_DIR="www/pic-saint-loup"
           [[ "$REMOTE_DIR" == "www/pic-saint-loup" ]]
 
+      - name: Reconnaître la clé SSH de l'hébergement OVH
+        if: steps.secrets.outputs.configured == 'true'
+        shell: bash
+        env:
+          OVH_SFTP_HOST: ${{ secrets.OVH_SFTP_HOST }}
+          OVH_SFTP_HOST_FINGERPRINT: ${{ secrets.OVH_SFTP_HOST_FINGERPRINT }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          ssh-keyscan -T 10 -p 22 "$OVH_SFTP_HOST" 2>/dev/null > "$HOME/.ssh/known_hosts"
+          test -s "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          if [[ -n "$OVH_SFTP_HOST_FINGERPRINT" ]]; then
+            ssh-keygen -lf "$HOME/.ssh/known_hosts" | grep -F -- "$OVH_SFTP_HOST_FINGERPRINT" > /dev/null || {
+              echo "::error::L'empreinte SSH OVH ne correspond pas à celle attendue."
+              exit 1
+            }
+          else
+            echo "::warning::Clé SSH OVH découverte au déploiement ; épingler l'empreinte avec OVH_SFTP_HOST_FINGERPRINT pour une vérification renforcée."
+          fi
+
       - name: Publier uniquement www/pic-saint-loup/
         if: steps.secrets.outputs.configured == 'true'
         shell: bash
@@ -60,14 +82,14 @@ jobs:
           OVH_SFTP_PASSWORD: ${{ secrets.OVH_SFTP_PASSWORD }}
         run: |
           set -euo pipefail
-          # Aucun --delete : les fichiers distants ne sont jamais supprimés.
-          # Ne synchronise que le sous-dossier de ce projet.
-          lftp -u "$OVH_SFTP_USER,$OVH_SFTP_PASSWORD" "sftp://$OVH_SFTP_HOST" -e "
-            set net:max-retries 2;
-            set net:timeout 30;
-            mkdir -p www/pic-saint-loup;
-            mirror --reverse --verbose=1 --parallel=2 --no-perms \
-              \"$GITHUB_WORKSPACE/www/pic-saint-loup/\" \
-              \"www/pic-saint-loup/\";
-            bye;
-          "
+          PUBLISH_DIR="$GITHUB_WORKSPACE/www/pic-saint-loup"
+          test -f "$PUBLISH_DIR/index.html"
+          # Le heredoc évite les échappements imbriqués qui corrompaient le chemin local.
+          # Ne supprimer aucun fichier distant et ne publier que ce sous-dossier.
+          lftp -u "$OVH_SFTP_USER,$OVH_SFTP_PASSWORD" "sftp://$OVH_SFTP_HOST" <<LFTP
+          set net:max-retries 2
+          set net:timeout 30
+          mkdir -p www/pic-saint-loup
+          mirror --reverse --verbose=1 --parallel=2 --no-perms "$PUBLISH_DIR/" "www/pic-saint-loup/"
+          bye
+          LFTP
