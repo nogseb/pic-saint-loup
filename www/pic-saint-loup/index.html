@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr" data-na-projet="Carnet du Pic Saint-Loup" data-na-categorie="perso" data-na-maj="2026-10-21" data-na-outils="ChatGPT, OpenStreetMap, Leaflet, GitHub">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#183f37">
+  <meta name="description" content="Carnet d'escapade autour de Saint-Jean-de-Cuculles et du Pic Saint-Loup : villages, garrigue et randonnées, du samedi au lundi.">
+  <meta property="og:title" content="Pic Saint-Loup — Carnet d'escapade">
+  <meta property="og:description" content="Trois jours entre villages de pierre, garrigue et grand air, depuis Saint-Jean-de-Cuculles.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nogues.app/pic-saint-loup/assets/partage.png">
+  <meta property="og:url" content="https://nogues.app/pic-saint-loup/">
+  <link rel="canonical" href="https://nogues.app/pic-saint-loup/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/ds/v1/na.css">
+  <script defer src="/ds/v1/na.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoT6lzJUpZ1D74=" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <noscript><p class="noscript-home"><a href="https://nogues.app/">← Retour à nogues.app</a></p></noscript>
+  <main id="contenu">
+    <section class="hero" aria-labelledby="titre">
+      <div class="hero-grain" aria-hidden="true"></div>
+      <div class="hero-inner wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="spark" aria-hidden="true">✳</span> CARNET D'ESCAPADE <span class="eyebrow-rule"></span> HÉRAULT · OCCITANIE</div>
+          <h1 id="titre">L'appel<br>du <em>Pic</em><br>Saint-Loup<span class="dot">.</span></h1>
+          <p class="hero-intro">Trois jours pour prendre les chemins de traverse, flâner dans les villages de pierre et gagner les hauteurs de la garrigue.</p>
+          <div class="hero-actions">
+            <a href="#carte" class="btn btn-lime"><span aria-hidden="true">↗</span> Explorer l'itinéraire</a>
+            <a href="#programme" class="btn btn-ghost">Voir le programme <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-meta"><span>LE CAMP DE BASE</span><strong>Saint-Jean-de-Cuculles</strong><span class="meta-star" aria-hidden="true">✳</span><span>SAM. MIDI → LUN. MIDI</span></div>
+        </div>
+        <div class="hero-visual" aria-label="Paysage du Pic Saint-Loup">
+          <div class="photo-landscape">
+            <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/PicStLoup_vuedeLaVieille_08072009.JPG/960px-PicStLoup_vuedeLaVieille_08072009.JPG" alt="Le Pic Saint-Loup au-dessus des vignes et de la garrigue" width="960" height="720" fetchpriority="high" onerror="this.style.display='none'">
+          </div>
+          <svg class="photo-contours" viewBox="0 0 600 540" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M-20 423C64 349 129 422 222 353S419 360 623 197M-20 450C61 375 134 442 239 381S434 382 623 232M-20 484C78 405 152 465 250 410S446 411 623 260M-20 514C89 434 161 502 268 447S448 449 623 298" stroke="#F3EFDE" stroke-opacity=".42" stroke-width="1.5"/></svg>
+          <div class="hero-stamp" aria-label="Point culminant : 658 mètres"><span>658</span><small>MÈTRES<br>D'ALTITUDE</small></div>
+          <div class="hero-caption">43°46'N — 3°48'E <span>·</span> GRAND PIC SAINT-LOUP</div>
+        </div>
+      </div>
+      <div class="hero-bottom wrap"><span>UNE ÉCHAPPÉE EN TERRE DE GARRIGUE</span><div class="hero-bottom-squiggle" aria-hidden="true">〰〰〰</div><a href="#programme" aria-label="Descendre au programme">SCROLL TO EXPLORE <span aria-hidden="true">↘</span></a></div>
+    </section>
+
+    <section class="overview wrap" aria-label="Résumé du séjour">
+      <div class="overview-title"><span class="micro-label">LE VOYAGE EN UN COUP D'ŒIL</span><p>Peu de kilomètres,<br><em>beaucoup de découvertes.</em></p></div>
+      <div class="stat"><span class="stat-number">03<span class="stat-small"> jours</span></span><span class="stat-label">samedi → lundi</span></div>
+      <div class="stat"><span class="stat-number">02<span class="stat-small"> randos*</span></span><span class="stat-label">Pic + Ravin en option</span></div>
+      <div class="stat"><span class="stat-number">658<span class="stat-small"> m</span></span><span class="stat-label">le sommet à gravir</span></div>
+    </section>
+
+    <section class="route-section" id="programme" aria-labelledby="programme-titre">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><span class="micro-label">01 / LE PROGRAMME</span><h2 id="programme-titre">À chaque jour<br><em>sa découverte.</em></h2></div>
+          <p>Une boucle depuis Saint-Jean-de-Cuculles, pensée pour voyager sans courir. Le dimanche, on garde le meilleur pour la randonnée.</p>
+        </div>
+        <div class="day-tabs" role="tablist" aria-label="Choisir une journée">
+          <button type="button" role="tab" aria-selected="true" aria-controls="panel-samedi" id="tab-samedi" data-day="samedi" class="day-tab active"><span class="tab-overline">JOUR 01</span><span class="tab-title">Samedi</span><span class="tab-sub">Villages & garrigue</span></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-dimanche" id="tab-dimanche" data-day="dimanche" class="day-tab"><span class="tab-overline">JOUR 02</span><span class="tab-title">Dimanche</span><span class="tab-sub">La grande ascension</span></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-lundi" id="tab-lundi" data-day="lundi" class="day-tab"><span class="tab-overline">JOUR 03</span><span class="tab-title">Lundi</span><span class="tab-sub">Un dernier grand bol d'air</span></button>
+        </div>
+
+        <div class="route-grid" id="carte">
+          <div class="map-column">
+            <div class="map-shell">
+              <div class="map-heading"><div><span class="micro-label">VOTRE TERRAIN DE JEU</span><strong id="map-day-title">La boucle du samedi</strong></div><span class="map-live"><span class="live-dot"></span> CARTE INTERACTIVE</span></div>
+              <div class="map-stage">
+                <div id="map" role="application" aria-label="Carte interactive des étapes du séjour"><div class="map-fallback"><span aria-hidden="true">⌁</span><strong>La garrigue, en grand</strong><p>Si la carte ne se charge pas, ouvrez le trajet dans votre application de navigation.</p></div></div>
+                <div class="map-key" aria-label="Légende de carte"><span><i class="key-dot key-main"></i> Étapes</span><span><i class="key-dot key-home"></i> Camp de base</span><span><i class="key-line"></i> Liaison indicative</span></div>
+              </div>
+              <div class="map-bottom"><span><span aria-hidden="true">⌖</span> Carte © OpenStreetMap</span><a id="day-map-link" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">Itinéraire routier <span aria-hidden="true">↗</span></a></div>
+            </div>
+            <div class="map-side-note"><span class="side-note-icon" aria-hidden="true">✳</span><p>La carte montre des <strong>points d'étape, pas une trace GPS</strong>. Pour suivre les routes et chemins réels, utilisez les liens de navigation et les fiches officielles des randonnées.</p></div>
+          </div>
+
+          <div class="itinerary-column">
+            <section class="day-panel active" id="panel-samedi" role="tabpanel" aria-labelledby="tab-samedi">
+              <div class="panel-kicker"><span>JOUR 01 · SAMEDI</span><span>DE 12H À LA SOIRÉE</span></div>
+              <div class="panel-intro"><h3>Au rythme<br>des <em>villages.</em></h3><p>La journée découverte. Pierres blondes, petites places, routes de campagne… avant de retrouver Montpellier pour votre dîner réservé.</p></div>
+              <div class="timeline">
+                <article class="stop" id="step-base" data-marker="base"><span class="stop-index">01</span><div class="stop-body"><div class="stop-top"><span>12H00 · CAMP DE BASE</span><span class="stop-duration">30–60 min</span></div><h4>Saint-Jean-de-Cuculles</h4><p>Arrivée, déjeuner et premier tour du village autour de son église romane. On pose les valises et on adopte le rythme du Sud.</p><a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Saint-Jean-de-Cuculles" target="_blank" rel="noopener noreferrer">S'y rendre <span aria-hidden="true">↗</span></a></div></article>
+                <article class="stop" data-marker="matelles"><span class="stop-index">02</span><div class="stop-body"><div class="stop-top"><span>13H30 · PATRIMOINE</span><span class="stop-duration">45 min</span></div><h4>Les Matelles</h4><p>Flânerie dans les ruelles médiévales, entre portes anciennes, maisons de pierre et petits détails d'architecture.</p><a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Les+Matelles+village" target="_blank" rel="noopener noreferrer">Voir le village <span aria-hidden="true">↗</span></a></div></article>
+                <article class="stop" data-marker="stmartin"><span class="stop-index">03</span><div class="stop-body"><div class="stop-top"><span>15H00 · PLACE & CAFÉ</span><span class="stop-duration">45 min</span></div><h4>Saint-Martin-de-Londres</h4><p>Une halte sur la place du village, sa fontaine et son église romane. Le bon endroit pour prendre un café et observer la vie locale.</p><a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Saint-Martin-de-Londres" target="_blank" rel="noopener noreferrer">Voir le village <span aria-hidden="true">↗</span></a></div></article>
+                <article class="stop" data-marker="notredame"><span class="stop-index">04</span><div class="stop-body"><div class="stop-top"><span>16H00 · PETIT DÉTOUR</span><span class="stop-duration">20–30 min</span></div><h4>Notre-Dame-de-Londres</h4><p>Petit village plein de charme, église romane et placette paisible. Le château est visible de l'extérieur uniquement.</p><a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Notre-Dame-de-Londres" target="_blank" rel="noopener noreferrer">Voir le village <span aria-hidden="true">↗</span></a></div></article>
+                <article class="stop stop-optional" data-marker="ravin"><span class="stop-index">+ </span><div class="stop-body"><div class="stop-top"><span>OPTION · SI LE TEMPS LE PERMET</span><span class="stop-duration">1 h 30 min</span></div><div class="stop-option-title"><h4>Ravin des Arcs</h4><span class="optional-pill">+ 4 KM / +248 M</span></div><p>Arche naturelle spectaculaire sur la rivière du Lamalou. <strong>Une vraie petite randonnée</strong> et non un simple arrêt photo : à garder seulement si le dîner n'est pas trop tôt.</p><label class="toggle-row"><input type="checkbox" id="include-ravin"><span class="switch" aria-hidden="true"></span><span>Ajouter à ma boucle du samedi</span></label><a class="stop-link" href="https://www.grandpicsaintloup-tourisme.fr/itineraires/le-ravin-des-arcs-pr" target="_blank" rel="noopener noreferrer">Fiche officielle & GPX <span aria-hidden="true">↗</span></a><p class="warning-inline">Après la pluie, les passages peuvent être dangereux ou impraticables.</p></div></article>
+                <article class="stop stop-final" data-marker="montpellier"><span class="stop-index">★</span><div class="stop-body"><div class="stop-top"><span>LE SOIR · RENDEZ-VOUS RÉSERVÉ</span><span class="stop-duration">Selon réservation</span></div><h4>Dîner à Montpellier</h4><p>Retour à Saint-Jean-de-Cuculles si besoin, puis départ vers Montpellier. Prévoir une marge pour le trajet et le stationnement.</p><a class="stop-link" href="https://www.google.com/maps/dir/?api=1&origin=Saint-Jean-de-Cuculles&destination=Montpellier&travelmode=driving" target="_blank" rel="noopener noreferrer">Trajet vers Montpellier <span aria-hidden="true">↗</span></a></div></article>
+              </div>
+              <div class="day-takeaway"><span aria-hidden="true">✳</span><p><strong>Le bon choix :</strong> villages en priorité. Le Ravin des Arcs est un bonus sportif ; mieux vaut le sauter que de courir avant le restaurant.</p></div>
+            </section>
+
+            <section class="day-panel" id="panel-dimanche" role="tabpanel" aria-labelledby="tab-dimanche" hidden>
+              <div class="panel-kicker"><span>JOUR 02 · DIMANCHE</span><span>LA JOURNÉE NATURE</span></div>
+              <div class="panel-intro"><h3>Tout là-haut,<br><em>le Pic.</em></h3><p>Le temps fort du week-end. Une montée rocailleuse, un sommet ouvert sur l'horizon et l'après-midi pour savourer les paysages viticoles.</p></div>
+              <div class="hike-card"><div class="hike-title"><span class="hike-micro">LA RANDONNÉE INCONTOURNABLE</span><span class="hike-stars" aria-hidden="true">✳ ✳ ✳</span></div><div class="hike-numbers"><div><strong>6 <small>km</small></strong><span>ALLER-RETOUR</span></div><div><strong>364 <small>m</small></strong><span>DÉNIVELÉ +</span></div><div><strong>2 h 30</strong><span>ENVIRON</span></div></div><p>Niveau moyen · montée caillouteuse avec passages parfois raides. Chaussures de randonnée recommandées, eau et prudence près des falaises.</p><a href="https://www.grandpicsaintloup-tourisme.fr/itineraires/le-pic-saint-loup-pr" target="_blank" rel="noopener noreferrer" class="hike-link">Fiche officielle et trace GPX <span aria-hidden="true">↗</span></a></div>
+              <div class="timeline">
+                <article class="stop" data-marker="parking"><span class="stop-index">01</span><div class="stop-body"><div class="stop-top"><span>08H30–09H00 · DÉPART</span><span class="stop-duration">Cazevieille</span></div><h4>Parking du Pic Saint-Loup</h4><p>Arriver tôt pour trouver une place et profiter d'une lumière plus douce. Le sentier officiel part du secteur de Cazevieille.</p><a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=43.77031%2C3.79268" target="_blank" rel="noopener noreferrer">Ouvrir le parking GPS <span aria-hidden="true">↗</span></a></div></article>
+                <article class="stop" data-marker="sommet"><span class="stop-index">02</span><div class="stop-body"><div class="stop-top"><span>09H00–11H45 · MARCHE</span><span class="stop-duration">2 h 30 min + pauses</span></div><h4>Le sommet, 658 m</h4><p>Une récompense panoramique : plaine de Montpellier, Cévennes et Méditerranée par temps clair. Prenez le temps d'admirer la vue avant de redescendre.</p><a class="stop-link" href="https://www.grandpicsaintloup-tourisme.fr/itineraires/le-pic-saint-loup-pr" target="_blank" rel="noopener noreferrer">Description du parcours <span aria-hidden="true">↗</span></a></div></article>
+                <article class="stop" data-marker="cazevieille"><span class="stop-index">03</span><div class="stop-body"><div class="stop-top"><span>12H30 · DÉJEUNER</span><span class="stop-duration">À votre rythme</span></div><h4>Pique-nique ou déjeuner</h4><p>Autour de Cazevieille ou de Saint-Mathieu-de-Tréviers. Après la montée, une bonne pause à l'ombre est la bienvenue.</p></div></article>
+                <article class="stop" data-marker="hortus"><span class="stop-index">04</span><div class="stop-body"><div class="stop-top"><span>14H30 · ROUTE PANORAMIQUE</span><span class="stop-duration">1–2 h</span></div><h4>Les vignes & l'Hortus</h4><p>Rouler tranquillement vers Valflaunès pour admirer la falaise de l'Hortus, les domaines viticoles et les contrastes de la garrigue.</p><a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Valflaun%C3%A8s+Hortus" target="_blank" rel="noopener noreferrer">Découvrir le secteur <span aria-hidden="true">↗</span></a><p class="subtle-note">Dégustations possibles selon les domaines, sur réservation ; vérifier l'ouverture du dimanche.</p></div></article>
+              </div>
+              <div class="day-takeaway"><span aria-hidden="true">✳</span><p><strong>Le bon choix :</strong> partir de bonne heure, garder la matinée pour la montée, puis lever le pied. Le dimanche, inutile d'enchaîner deux grandes randonnées.</p></div>
+            </section>
+
+            <section class="day-panel" id="panel-lundi" role="tabpanel" aria-labelledby="tab-lundi" hidden>
+              <div class="panel-kicker"><span>JOUR 03 · LUNDI</span><span>MATINÉE TRANQUILLE</span></div>
+              <div class="panel-intro"><h3>Un dernier<br><em>souffle de nature.</em></h3><p>Une seule visite, bien choisie. On ralentit au bord de l'eau avant de reprendre la route vers midi.</p></div>
+              <div class="timeline">
+                <article class="stop" data-marker="base"><span class="stop-index">01</span><div class="stop-body"><div class="stop-top"><span>09H00 · DÉPART DOUX</span><span class="stop-duration">Depuis le gîte</span></div><h4>Saint-Jean-de-Cuculles</h4><p>Petit-déjeuner, bagages et départ sans précipitation.</p></div></article>
+                <article class="stop" data-marker="lac"><span class="stop-index">02</span><div class="stop-body"><div class="stop-top"><span>09H30 · BALADE AUTOUR DE L'EAU</span><span class="stop-duration">45–75 min</span></div><h4>Lac de Cécélès</h4><p>Dernière parenthèse au milieu des pins et des collines. Une courte promenade, quelques photos et l'envie de revenir.</p><a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Lac+de+C%C3%A9c%C3%A9l%C3%A8s" target="_blank" rel="noopener noreferrer">Ouvrir le GPS <span aria-hidden="true">↗</span></a><p class="subtle-note">Vérifier les conditions d'accès au lac et aux rives sur place. La baignade n'est pas prévue au programme.</p></div></article>
+                <article class="stop stop-final"><span class="stop-index">↗</span><div class="stop-body"><div class="stop-top"><span>AVANT MIDI · RETOUR</span><span class="stop-duration">À votre rythme</span></div><h4>Reprendre la route</h4><p>Fin de l'escapade. Trois jours de pierres, de panoramas et de grand air.</p></div></article>
+              </div>
+              <aside class="alternative-box"><span class="micro-label">ET LE CHÂTEAU DE MONTFERRAND ?</span><p>Son enceinte est <strong>temporairement interdite d'accès</strong> en raison de travaux de sécurisation. Les visites encadrées sont ponctuelles : mieux vaut privilégier le lac pour ce lundi matin.</p><a href="https://chateaudemontferrand.fr/acces-chateau.html" target="_blank" rel="noopener noreferrer">Consignes officielles <span aria-hidden="true">↗</span></a></aside>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="editorial-section wrap" aria-labelledby="secrets-title"><div class="editorial-heading"><span class="micro-label">02 / LE GOÛT DES LIEUX</span><h2 id="secrets-title">Des chemins,<br><em>des pierres, du soleil.</em></h2></div><div class="editorial-cards"><article class="editorial-card card-stone"><div class="card-photo"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Les_Matelles_rue_droite.JPG/500px-Les_Matelles_rue_droite.JPG" alt="Ruelle pavée dans le village médiéval des Matelles" loading="lazy" width="500" height="750" onerror="this.style.display='none'"><span class="card-number">01 / FLÂNER</span></div><div class="editorial-card-content"><h3>La beauté discrète<br>des Matelles.</h3><p>Prendre le temps de se perdre dans les ruelles plutôt que de cocher les monuments.</p></div></article><article class="editorial-card card-canyon"><div class="card-photo"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Ravin_des_Arcs_24-25mod.jpg/960px-Ravin_des_Arcs_24-25mod.jpg" alt="Arche naturelle au-dessus du Lamalou dans le Ravin des Arcs" loading="lazy" width="960" height="1008" onerror="this.style.display='none'"><span class="card-number">02 / S'ÉMERVEILLER</span></div><div class="editorial-card-content"><h3>Un canyon<br>dans la garrigue.</h3><p>Un détour plus sportif, à garder pour les journées où l'on a du temps devant soi.</p></div></article><article class="editorial-card card-village"><div class="card-photo"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Saint-Martin-de-Londres_eglise.JPG/960px-Saint-Martin-de-Londres_eglise.JPG" alt="Église romane de Saint-Martin-de-Londres" loading="lazy" width="960" height="640" onerror="this.style.display='none'"><span class="card-number">03 / CONTEMPLER</span></div><div class="editorial-card-content"><h3>Le temps long<br>des villages.</h3><p>Des églises romanes, des façades anciennes et un café sur la place.</p></div></article></div></section>
+
+    <section class="notes-section" aria-labelledby="notes-title"><div class="wrap notes-grid"><div class="notes-heading"><span class="micro-label">03 / BON À SAVOIR</span><h2 id="notes-title">Partir l'esprit<br><em>léger.</em></h2><p>Quelques détails qui changent tout, surtout en montagne et dans la garrigue.</p></div><div class="notes-list"><div class="note"><span class="note-icon">↗</span><div><h3>Pour le Pic Saint-Loup</h3><p>Chaussures à bonne accroche, eau, coupe-vent et carte officielle. Terrain rocheux ; prudence en bord de falaise.</p></div></div><div class="note"><span class="note-icon">≈</span><div><h3>Pour le Ravin des Arcs</h3><p>Le Lamalou est un cours d'eau intermittent qui peut gonfler rapidement après la pluie. Ne pas s'engager en cas de risque de crue.</p></div></div><div class="note"><span class="note-icon">◷</span><div><h3>Pour les horaires</h3><p>Les heures sont indicatives et les temps de route variables. Adapter le samedi à l'heure réelle du dîner à Montpellier.</p></div></div><div class="note"><span class="note-icon">◉</span><div><h3>Pour l'orientation</h3><p>Utilisez les itinéraires routiers pour les trajets et les fiches de l'office de tourisme pour les randonnées. Vérifiez les restrictions d'accès aux massifs.</p></div></div></div></div></section>
+
+    <section class="outro wrap"><div><span class="micro-label">LE PLAISIR DE PRENDRE LA ROUTE</span><h2>Et si le meilleur<br>était <em>dehors&nbsp;?</em></h2></div><a class="btn btn-lime" href="#carte">Retour à la carte <span aria-hidden="true">↑</span></a></section>
+    <div class="credits wrap"><div><span class="micro-label">SOURCES & CRÉDITS</span><p>Randonnées : <a href="https://www.grandpicsaintloup-tourisme.fr/" target="_blank" rel="noopener noreferrer">Office de tourisme du Grand Pic Saint-Loup</a>. Château : <a href="https://chateaudemontferrand.fr/acces-chateau.html" target="_blank" rel="noopener noreferrer">Pic Patrimoine</a>. Carte : © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>, affichage Leaflet.</p><p>Photos : <a href="https://commons.wikimedia.org/wiki/File:PicStLoup_vuedeLaVieille_08072009.JPG" target="_blank" rel="noopener noreferrer">Sebjarod (CC BY-SA 3.0)</a> · <a href="https://commons.wikimedia.org/wiki/File:Les_Matelles_rue_droite.JPG" target="_blank" rel="noopener noreferrer">Fagairolles 34 (CC BY-SA 4.0)</a> · <a href="https://commons.wikimedia.org/wiki/File:Ravin_des_Arcs_24-25mod.jpg" target="_blank" rel="noopener noreferrer">JYB Devot (CC BY-SA 4.0)</a> · <a href="https://commons.wikimedia.org/wiki/File:Saint-Martin-de-Londres_eglise.JPG" target="_blank" rel="noopener noreferrer">Fagairolles 34 (CC BY-SA 4.0)</a>.</p></div><div><span class="micro-label">CONFIDENTIALITÉ</span><p>Page privée, non référencée (mais accessible aux personnes disposant de son lien). Aucun outil de mesure d'audience ni cookie publicitaire. L'affichage de la carte sollicite OpenStreetMap et les ressources cartographiques Leaflet sont chargées depuis un CDN ; les liens de navigation ouvrent Google Maps.</p></div></div>
+  </main>
+</body>
+</html>
